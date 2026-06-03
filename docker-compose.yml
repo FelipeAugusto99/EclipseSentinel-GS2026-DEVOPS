@@ -1,0 +1,67 @@
+# =========================================================
+# DOCKER COMPOSE - ECLIPSE SENTINEL
+# FELIPE AUGUSTO LOPES FERREIRA RM563982
+# KAIQUE MASCARENHAS DOS SANTOS RM565802
+# =========================================================
+ 
+version: '3.8'
+ 
+services:
+ 
+  # -------------------------------------------------------
+  # CONTAINER DO BANCO DE DADOS
+  # -------------------------------------------------------
+  db-rm563982:
+    image: mysql:8.0
+    container_name: db-rm563982
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: eclipse_sentinel
+      MYSQL_USER: sentinel
+      MYSQL_PASSWORD: sentinel123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-volume-rm563982:/var/lib/mysql
+    networks:
+      - sentinel-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+ 
+  # -------------------------------------------------------
+  # CONTAINER DA APLICACAO
+  # -------------------------------------------------------
+  app-rm563982:
+    build: .
+    container_name: app-rm563982
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-rm563982:3306/eclipse_sentinel?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: sentinel
+      SPRING_DATASOURCE_PASSWORD: sentinel123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+    ports:
+      - "8080:8080"
+    depends_on:
+      db-rm563982:
+        condition: service_healthy
+    networks:
+      - sentinel-network
+ 
+# -------------------------------------------------------
+# VOLUME NOMEADO PARA PERSISTENCIA
+# -------------------------------------------------------
+volumes:
+  db-volume-rm563982:
+ 
+# -------------------------------------------------------
+# REDE
+# -------------------------------------------------------
+networks:
+  sentinel-network:
+    driver: bridge
