@@ -19,12 +19,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/auth/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
