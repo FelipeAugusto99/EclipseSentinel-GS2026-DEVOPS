@@ -30,6 +30,8 @@ A aplicação foi implantada em uma Máquina Virtual Microsoft Azure utilizando 
 
 # Arquitetura da Solução
 
+![Arquitetura Eclipse Sentinel](docs/arquitetura.png)
+
 Usuário → API Spring Boot → Banco MySQL
 
 Infraestrutura:
@@ -39,8 +41,6 @@ Infraestrutura:
 - Container Docker do Banco de Dados
 - Rede Docker dedicada
 - Volume Docker para persistência dos dados
-
----
 
 # Tecnologias Utilizadas
 
