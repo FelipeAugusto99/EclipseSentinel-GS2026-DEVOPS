@@ -189,6 +189,15 @@ docker compose version
 docker compose up -d --build
 ```
 
+### 8.1 Caso a porta 8080 já esteja em uso
+
+Se aparecer o erro `port is already allocated`, execute:
+
+```bash
+sudo docker rm -f nginx-8080
+sudo docker compose up -d
+```
+
 ---
 
 ### 9. Verificar Containers em Execução
