@@ -198,7 +198,17 @@ sudo docker rm -f nginx-8080
 sudo docker compose up -d
 ```
 
+--- 
+
+### 8.2 Se fez o passo 8.1, pode rodar esse código pra evitar bugs na hora de ir para o swagger
+
+```bash
+sudo docker compose down
+sudo docker compose up -d
+```
+
 ---
+
 
 ### 9. Verificar Containers em Execução
 
