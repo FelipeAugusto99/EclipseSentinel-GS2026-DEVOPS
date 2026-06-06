@@ -245,6 +245,13 @@ Exemplo:
 http://20.226.18.42:8080/swagger-ui/index.html
 ```
 
+### 11.1 Caso o Swager não esteja abrindo no navegador (faça o passo 11 novamente após rodar esse código)
+
+```bash
+sudo docker compose down
+sudo docker compose up -d
+```
+
 ---
 
 ### 12. Acessar o Container da Aplicação
